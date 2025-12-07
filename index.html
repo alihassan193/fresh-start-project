@@ -4,41 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desert Safari Dubai - Premium Desert Adventures & Tours</title>
-    <link rel="preload" href="/assets/images/logos/favicon.png" as="image" />
-    <link
-      rel="shortcut icon"
-      href="/assets/images/logos/favicon.png"
-      as="image/x-icon"
-    />
-
-    <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <link
-      rel="preconnect"
-      href="https://backend.desert-safaridubai.ae"
-      crossorigin
-    />
+    
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://backend.desert-safaridubai.ae" crossorigin />
     <link rel="dns-prefetch" href="https://backend.desert-safaridubai.ae" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link
-      rel="modulepreload"
-      crossorigin
-      href="/assets/ui-vendor-D-YgIEMB.js"
-    />
-    <link rel="stylesheet" crossorigin href="/assets/index-DcwsjdSe.css" />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-X1CQHS2SKL"
-    ></script>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Preload LCP hero image -->
+    <link rel="preload" as="image" href="/src/assets/hero-desert-camp.jpg" fetchpriority="high" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/logos/favicon.png" />
+    
+    <!-- Critical CSS inlined for faster FCP/LCP -->
+    <style>
+      /* Critical above-the-fold styles */
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 25 25% 15%;
+        --primary: 25 85% 55%;
+        --primary-foreground: 0 0% 100%;
+        --desert-gold: 35 85% 55%;
+        --desert-sunset: 25 90% 50%;
+        --border: 35 20% 88%;
+        --ring: 25 85% 55%;
+        --radius: 0.5rem;
+      }
+      *, *::before, *::after { box-sizing: border-box; border-width: 0; border-style: solid; }
+      html { line-height: 1.5; -webkit-text-size-adjust: 100%; font-family: ui-sans-serif, system-ui, sans-serif; }
+      body { margin: 0; background-color: hsl(var(--background)); color: hsl(var(--foreground)); }
+      #root { min-height: 100vh; }
+      .min-h-screen { min-height: 100vh; }
+      .bg-background { background-color: hsl(var(--background)); }
+      /* Hero section critical styles */
+      .relative { position: relative; }
+      .flex { display: flex; }
+      .items-center { align-items: center; }
+      .justify-center { justify-content: center; }
+      .bg-cover { background-size: cover; }
+      .bg-center { background-position: center; }
+      .bg-no-repeat { background-repeat: no-repeat; }
+      .text-center { text-align: center; }
+      .text-white { color: #fff; }
+      .container { width: 100%; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+      @media (min-width: 640px) { .container { max-width: 640px; } }
+      @media (min-width: 768px) { .container { max-width: 768px; } }
+      @media (min-width: 1024px) { .container { max-width: 1024px; } }
+      @media (min-width: 1280px) { .container { max-width: 1280px; } }
+    </style>
+    
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Defer Google Tag Manager -->
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-X1CQHS2SKL"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
+      function gtag() { dataLayer.push(arguments); }
       gtag("js", new Date());
-
       gtag("config", "G-X1CQHS2SKL");
       gtag("config", "AW-17058034465");
     </script>

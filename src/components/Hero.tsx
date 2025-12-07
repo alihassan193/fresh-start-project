@@ -11,6 +11,8 @@ const Hero = () => {
       style={{ backgroundImage: `url(${heroImage})` }}
       aria-label="Desert Safari Dubai hero section"
     >
+      {/* Preload hint for LCP image */}
+      <link rel="preload" as="image" href={heroImage} />
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-6xl mx-auto">
