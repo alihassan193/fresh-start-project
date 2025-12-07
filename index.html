@@ -15,6 +15,9 @@
     <!-- Preload LCP hero image -->
     <link rel="preload" as="image" href="/src/assets/hero-desert-camp.jpg" fetchpriority="high" />
     
+    <!-- Preload main bundle to reduce critical path chain -->
+    <link rel="modulepreload" href="/src/main.tsx" />
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/images/logos/favicon.png" />
     
