@@ -19,8 +19,8 @@ const Hero = () => {
             Desert Safari Dubai
           </h1>
 
-          {/* Subheading - With backdrop for visibility */}
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-12 text-white max-w-3xl mx-auto font-medium px-6 py-3 bg-black/40 backdrop-blur-sm rounded-lg inline-block drop-shadow-lg [text-shadow:1px_1px_2px_rgba(0,0,0,0.8)]">
+          {/* Subheading - Updated to have meaningful content */}
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-12 text-white/95 max-w-3xl mx-auto font-light px-4">
             Experience the ultimate Arabian adventure with premium desert safaris
           </p>
 
