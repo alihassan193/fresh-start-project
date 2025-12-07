@@ -36,10 +36,16 @@ const Testimonials = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-white">
+      <section 
+        className="py-20 bg-white"
+        aria-label="Testimonials loading"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="animate-pulse">Loading testimonials...</div>
+            <div className="animate-pulse" role="status" aria-live="polite">
+              <span className="sr-only">Loading</span>
+              Loading testimonials...
+            </div>
           </div>
         </div>
       </section>
@@ -47,10 +53,16 @@ const Testimonials = () => {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section 
+      className="py-20 bg-white"
+      aria-labelledby="testimonials-heading"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-desert-night mb-4">
+          <h2 
+            id="testimonials-heading"
+            className="text-4xl md:text-5xl font-bold text-desert-night mb-4"
+          >
             What Our Travelers Say
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -58,56 +70,79 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ul 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 list-none"
+          aria-label="Customer testimonials"
+        >
           {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="border-0 shadow-warm hover:shadow-elegant transition-all duration-300">
-              <CardContent className="p-6 sm:p-8">
-                {/* Stars */}
-                <div className="flex items-center mb-3 sm:mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-desert-gold fill-current" />
-                  ))}
-                </div>
-
-                {/* Quote */}
-                <p className="text-muted-foreground mb-4 sm:mb-6 text-base sm:text-lg leading-relaxed">
-                  "{testimonial.testimonial}"
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-sunset rounded-full flex items-center justify-center text-white font-semibold mr-3 sm:mr-4 text-sm sm:text-base">
-                    {getInitials(testimonial.full_name)}
+            <li key={testimonial.id}>
+              <Card className="border-0 shadow-warm hover:shadow-elegant transition-all duration-300 h-full">
+                <CardContent className="p-6 sm:p-8">
+                  {/* Stars */}
+                  <div 
+                    className="flex items-center mb-3 sm:mb-4"
+                    role="img"
+                    aria-label="5 out of 5 stars rating"
+                  >
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-desert-gold fill-current" 
+                        aria-hidden="true"
+                      />
+                    ))}
                   </div>
-                  <div>
-                    <div className="font-semibold text-desert-night text-sm sm:text-base">{testimonial.full_name}</div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">{testimonial.tag_line}</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+
+                  {/* Quote */}
+                  <blockquote className="text-muted-foreground mb-4 sm:mb-6 text-base sm:text-lg leading-relaxed">
+                    <p>"{testimonial.testimonial}"</p>
+                  </blockquote>
+
+                  {/* Author */}
+                  <footer className="flex items-center">
+                    <div 
+                      className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-sunset rounded-full flex items-center justify-center text-white font-semibold mr-3 sm:mr-4 text-sm sm:text-base"
+                      aria-hidden="true"
+                    >
+                      {getInitials(testimonial.full_name)}
+                    </div>
+                    <div>
+                      <cite className="font-semibold text-desert-night text-sm sm:text-base not-italic block">
+                        {testimonial.full_name}
+                      </cite>
+                      <span className="text-xs sm:text-sm text-muted-foreground">
+                        {testimonial.tag_line}
+                      </span>
+                    </div>
+                  </footer>
+                </CardContent>
+              </Card>
+            </li>
           ))}
-        </div>
+        </ul>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
+        <dl className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
           <div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2">10,000+</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">Happy Customers</div>
+            <dt className="text-xs sm:text-sm text-muted-foreground order-2">Happy Customers</dt>
+            <dd className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2 order-1">10,000+</dd>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2">4.9★</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">Average Rating</div>
+            <dt className="text-xs sm:text-sm text-muted-foreground order-2">Average Rating</dt>
+            <dd className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2 order-1">
+              4.9<span aria-hidden="true">★</span>
+              <span className="sr-only"> out of 5 stars</span>
+            </dd>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2">1,500+</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">5-Star Reviews</div>
+            <dt className="text-xs sm:text-sm text-muted-foreground order-2">5-Star Reviews</dt>
+            <dd className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2 order-1">1,500+</dd>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2">8+</div>
-            <div className="text-xs sm:text-sm text-muted-foreground">Years Experience</div>
+            <dt className="text-xs sm:text-sm text-muted-foreground order-2">Years Experience</dt>
+            <dd className="text-2xl sm:text-3xl md:text-4xl font-bold text-desert-sunset mb-2 order-1">8+</dd>
           </div>
-        </div>
+        </dl>
       </div>
     </section>
   );
