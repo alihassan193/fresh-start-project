@@ -60,18 +60,30 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          "react-vendor": ["react", "react-dom", "react-router-dom"],
-          "ui-vendor": [
+          "react-vendor": ["react", "react-dom"],
+          "router": ["react-router-dom"],
+          "ui-core": [
             "@radix-ui/react-dialog",
+            "@radix-ui/react-slot",
+          ],
+          "ui-menu": [
             "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-navigation-menu",
+          ],
+          "ui-form": [
             "@radix-ui/react-select",
+            "@radix-ui/react-checkbox",
+            "@radix-ui/react-label",
           ],
           "form-vendor": ["react-hook-form", "@hookform/resolvers", "zod"],
+          "query": ["@tanstack/react-query"],
         },
       },
     },
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 500,
     target: "esnext",
     minify: "esbuild",
+    sourcemap: false,
+    reportCompressedSize: false,
   },
 }));
