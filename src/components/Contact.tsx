@@ -13,7 +13,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
 import { contentApi, type ContactSubmission } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
@@ -90,10 +89,17 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-12 md:py-20 bg-gradient-sand">
+    <section 
+      id="contact" 
+      className="py-12 md:py-20 bg-gradient-sand"
+      aria-labelledby="contact-heading"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-desert-night mb-3 md:mb-4">
+          <h2 
+            id="contact-heading"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-desert-night mb-3 md:mb-4"
+          >
             Ready for Your Adventure?
           </h2>
           <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
@@ -108,7 +114,10 @@ const Contact = () => {
             <Card className="border-0 shadow-warm">
               <CardContent className="p-4 md:p-8">
                 <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0">
+                  <div 
+                    className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0"
+                    aria-hidden="true"
+                  >
                     <Phone className="w-4 h-4 md:w-6 md:h-6 text-white" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -119,17 +128,12 @@ const Contact = () => {
                       Speak with our safari experts
                     </p>
                     <address className="not-italic">
-                      <p
-                        className="text-sm md:text-lg
-  font-bold
-  text-desert-sunset-text
-  break-words"
+                      <a 
+                        href="tel:+971501131852" 
+                        className="text-sm md:text-lg font-bold text-desert-sunset-text break-words hover:underline"
                       >
-                        <a href="tel:+971501131852" className="hover:underline">
-                          {" "}
-                          +971 50 113 1852
-                        </a>
-                      </p>
+                        +971 50 113 1852
+                      </a>
                     </address>
                   </div>
                 </div>
@@ -139,7 +143,10 @@ const Contact = () => {
             <Card className="border-0 shadow-warm">
               <CardContent className="p-4 md:p-8">
                 <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0">
+                  <div 
+                    className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0"
+                    aria-hidden="true"
+                  >
                     <Mail className="w-4 h-4 md:w-6 md:h-6 text-white" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -150,18 +157,13 @@ const Contact = () => {
                       Get detailed information
                     </p>
                     <address className="not-italic">
-                      <p
-                        className="text-sm md:text-lg
-  font-bold
-  text-desert-sunset-text
-  break-words"
+                      <a 
+                        href="mailto:info@desert-safaridubai.ae"
+                        className="text-sm md:text-lg font-bold text-desert-sunset-text break-words hover:underline"
                       >
                         info@desert-safaridubai.ae
-                      </p>
+                      </a>
                     </address>
-                    {/* <p className="text-sm md:text-lg font-semibold text-desert-sunset break-words">
-                      bookings@desertsafari.ae
-                    </p> */}
                   </div>
                 </div>
               </CardContent>
@@ -170,7 +172,10 @@ const Contact = () => {
             <Card className="border-0 shadow-warm">
               <CardContent className="p-4 md:p-8">
                 <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0">
+                  <div 
+                    className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0"
+                    aria-hidden="true"
+                  >
                     <MapPin className="w-4 h-4 md:w-6 md:h-6 text-white" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -180,12 +185,14 @@ const Contact = () => {
                     <p className="text-xs md:text-sm text-muted-foreground mb-1 md:mb-2">
                       Our office location
                     </p>
-                    <p className="text-sm md:text-lg text-desert-night break-words">
-                      Dubai Marina, Sheikh Zayed Road
-                    </p>
-                    <p className="text-sm md:text-lg text-desert-night break-words">
-                      Dubai, UAE
-                    </p>
+                    <address className="not-italic">
+                      <p className="text-sm md:text-lg text-desert-night break-words">
+                        Dubai Marina, Sheikh Zayed Road
+                      </p>
+                      <p className="text-sm md:text-lg text-desert-night break-words">
+                        Dubai, UAE
+                      </p>
+                    </address>
                   </div>
                 </div>
               </CardContent>
@@ -194,7 +201,10 @@ const Contact = () => {
             <Card className="border-0 shadow-warm">
               <CardContent className="p-4 md:p-8">
                 <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0">
+                  <div 
+                    className="w-10 h-10 md:w-12 md:h-12 bg-gradient-sunset rounded-full flex items-center justify-center flex-shrink-0"
+                    aria-hidden="true"
+                  >
                     <Clock className="w-4 h-4 md:w-6 md:h-6 text-white" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -226,25 +236,26 @@ const Contact = () => {
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-4 md:space-y-6"
+                  noValidate
                 >
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor={field.name}>Full Name</FormLabel>
+                        <FormLabel>
+                          Full Name <span aria-hidden="true">*</span>
+                          <span className="sr-only">(required)</span>
+                        </FormLabel>
                         <FormControl>
                           <Input
-                            id={field.name}
                             placeholder="Your full name"
+                            autoComplete="name"
+                            aria-required="true"
                             {...field}
                           />
-                        </FormControl>{" "}
-                        <FormDescription>
-                          Please enter your full name.
-                        </FormDescription>
-                        {/* ✅ MUST exist */}
-                        <FormMessage className="min-h-[1rem]" />
+                        </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -254,11 +265,16 @@ const Contact = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email Address</FormLabel>
+                        <FormLabel>
+                          Email Address <span aria-hidden="true">*</span>
+                          <span className="sr-only">(required)</span>
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="email"
                             placeholder="your.email@example.com"
+                            autoComplete="email"
+                            aria-required="true"
                             {...field}
                           />
                         </FormControl>
@@ -272,11 +288,16 @@ const Contact = () => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel>
+                          Phone Number <span aria-hidden="true">*</span>
+                          <span className="sr-only">(required)</span>
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
                             placeholder="+971 XX XXX XXXX"
+                            autoComplete="tel"
+                            aria-required="true"
                             {...field}
                           />
                         </FormControl>
@@ -290,11 +311,15 @@ const Contact = () => {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Message</FormLabel>
+                        <FormLabel>
+                          Message <span aria-hidden="true">*</span>
+                          <span className="sr-only">(required)</span>
+                        </FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="Tell us about your preferred safari experience, group size, special requirements..."
                             rows={5}
+                            aria-required="true"
                             {...field}
                           />
                         </FormControl>
@@ -318,10 +343,16 @@ const Contact = () => {
                     size="lg"
                     className="w-full text-lg"
                     disabled={isSubmitting}
+                    aria-describedby={isSubmitting ? "submit-status" : undefined}
                   >
-                    <Send className="w-5 h-5 mr-2" />
+                    <Send className="w-5 h-5 mr-2" aria-hidden="true" />
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
+                  {isSubmitting && (
+                    <p id="submit-status" className="sr-only" aria-live="polite">
+                      Sending your message, please wait.
+                    </p>
+                  )}
                 </form>
               </Form>
             </CardContent>

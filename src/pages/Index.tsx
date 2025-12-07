@@ -14,15 +14,21 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Hero />
-      <FeaturedPackages />
-      <TourTypes />
-      <Suspense fallback={<div className="h-20" />}>
-        <DesertOffers />
-        <Testimonials />
-        <Contact />
-        <Footer />
-      </Suspense>
+      <div id="main-content">
+        <Hero />
+        <FeaturedPackages />
+        <TourTypes />
+        <Suspense fallback={
+          <div className="h-20 flex items-center justify-center" role="status" aria-live="polite">
+            <span className="sr-only">Loading additional content</span>
+          </div>
+        }>
+          <DesertOffers />
+          <Testimonials />
+          <Contact />
+          <Footer />
+        </Suspense>
+      </div>
     </div>
   );
 };
