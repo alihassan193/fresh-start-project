@@ -89,8 +89,11 @@ const FeaturedPackages = () => {
                           : getDefaultImage()
                       }
                       alt={`${pkg.packagename} tour package`}
+                      width={400}
+                      height={256}
                       className="w-full h-64 object-cover object-bottom group-hover:scale-110 transition-transform duration-500"
                       loading="lazy"
+                      decoding="async"
                     />
                   </Link>
                   {pkg.featured === "yes" && (

@@ -33,6 +33,8 @@ const Header = () => {
                 src={dsdLogoWhite}
                 alt=""
                 aria-hidden="true"
+                width={48}
+                height={48}
                 className="h-12 w-auto"
               />
               <span className="text-foreground text-xl font-bold tracking-wide sm:block">

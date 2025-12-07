@@ -7,12 +7,22 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${heroImage})` }}
+      className="relative min-h-screen flex items-center justify-center"
       aria-label="Desert Safari Dubai hero section"
     >
-      {/* Preload hint for LCP image */}
-      <link rel="preload" as="image" href={heroImage} />
+      {/* LCP Image - Use img tag with explicit dimensions for better LCP */}
+      <img
+        src={heroImage}
+        alt=""
+        aria-hidden="true"
+        width={1920}
+        height={1080}
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        style={{ zIndex: 0 }}
+      />
+      
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-6xl mx-auto">
