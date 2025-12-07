@@ -32,7 +32,7 @@ const Hero = () => {
           </h1>
 
           {/* Subheading - Updated to have meaningful content */}
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-12 text-white/95 max-w-3xl mx-auto font-light px-4">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-12 text-white/95 max-w-3xl mx-auto font-light px-6 py-4 bg-black/30 backdrop-blur-sm rounded-xl inline-block">
             Experience the ultimate Arabian adventure with premium desert safaris
           </p>
 
