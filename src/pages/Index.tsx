@@ -3,6 +3,12 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import FeaturedPackages from "@/components/FeaturedPackages";
 import TourTypes from "@/components/TourTypes";
+import {
+  useStructuredData,
+  generateLocalBusinessSchema,
+  generateTourOperatorSchema,
+  generateWebsiteSchema,
+} from "@/hooks/useStructuredData";
 
 // Lazy load below-the-fold components
 const DesertOffers = lazy(() => import("@/components/DesertOffers"));
@@ -10,7 +16,25 @@ const Testimonials = lazy(() => import("@/components/Testimonials"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 
+const BASE_URL = "https://desertsafaridubai.ae";
+
 const Index = () => {
+  // Add structured data for SEO
+  useStructuredData({
+    data: generateLocalBusinessSchema(BASE_URL),
+    id: "local-business-schema",
+  });
+
+  useStructuredData({
+    data: generateTourOperatorSchema(BASE_URL),
+    id: "tour-operator-schema",
+  });
+
+  useStructuredData({
+    data: generateWebsiteSchema(BASE_URL),
+    id: "website-schema",
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
