@@ -5,10 +5,7 @@ interface StructuredDataProps {
   id?: string;
 }
 
-export const useStructuredData = ({
-  data,
-  id = "structured-data",
-}: StructuredDataProps) => {
+export const useStructuredData = ({ data, id = "structured-data" }: StructuredDataProps) => {
   useEffect(() => {
     const scriptId = id;
     let script = document.getElementById(scriptId) as HTMLScriptElement;
@@ -64,11 +61,7 @@ export const generateItemListSchema = (items: any[], baseUrl: string) => {
 
 export const generateProductSchema = (pkg: any, baseUrl: string) => {
   const imgUrl = "https://backend.desertsafaridubai.ae";
-  const images = [
-    pkg.packagemainimage,
-    pkg.packagesideimage1,
-    pkg.packagesideimage2,
-  ]
+  const images = [pkg.packagemainimage, pkg.packagesideimage1, pkg.packagesideimage2]
     .filter(Boolean)
     .map((img) => `${imgUrl}${img}`);
 
@@ -89,11 +82,7 @@ export const generateProductSchema = (pkg: any, baseUrl: string) => {
       priceCurrency: "AED",
       availability: "https://schema.org/InStock",
       url: `${baseUrl}/tours/${pkg.slug}`,
-      priceValidUntil: new Date(
-        new Date().setFullYear(new Date().getFullYear() + 1)
-      )
-        .toISOString()
-        .split("T")[0],
+      priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split("T")[0],
     },
     aggregateRating: {
       "@type": "AggregateRating",
@@ -119,11 +108,7 @@ export const generateFAQSchema = (faqs: any[]) => {
   };
 };
 
-export const generateImageCarouselSchema = (
-  images: string[],
-  pkg: any,
-  baseUrl: string
-) => {
+export const generateImageCarouselSchema = (images: string[], pkg: any, baseUrl: string) => {
   const imgUrl = "https://backend.desertsafaridubai.ae";
 
   return {
@@ -181,7 +166,8 @@ export const generateLocalBusinessSchema = (baseUrl: string) => {
     "@id": `${baseUrl}/#localbusiness`,
     name: "Desert Safari Dubai",
     alternateName: "Desert Safari Dubai Tours",
-    description: "Premier desert safari tour operator in Dubai offering authentic Arabian desert experiences including dune bashing, camel rides, BBQ dinners, and cultural shows.",
+    description:
+      "Premier desert safari dubai tour operator in Dubai offering authentic Arabian desert experiences including dune bashing, camel rides, BBQ dinners, and cultural shows.",
     url: baseUrl,
     logo: `${baseUrl}/og-image.png`,
     image: `${baseUrl}/og-image.png`,
@@ -189,7 +175,7 @@ export const generateLocalBusinessSchema = (baseUrl: string) => {
     email: "info@desertsafaridubai.ae",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Al Quoz Industrial Area",
+      streetAddress: "Dubai Marina, Sheikh Zayed Road",
       addressLocality: "Dubai",
       addressRegion: "Dubai",
       postalCode: "00000",
@@ -216,9 +202,9 @@ export const generateLocalBusinessSchema = (baseUrl: string) => {
       },
     ],
     sameAs: [
-      "https://www.facebook.com/desertsafaridubai",
-      "https://www.instagram.com/desertsafaridubai",
-      "https://twitter.com/desertsafaridxb",
+      "https://www.facebook.com/luxuarydesertsafaridubai",
+      "https://www.instagram.com/crown_arabiatourism/",
+      "https://www.youtube.com/@DesertSafariAE",
     ],
     aggregateRating: {
       "@type": "AggregateRating",
@@ -236,7 +222,8 @@ export const generateTourOperatorSchema = (baseUrl: string) => {
     "@type": "TouristAttraction",
     "@id": `${baseUrl}/#touroperator`,
     name: "Desert Safari Dubai",
-    description: "Experience the magic of the Arabian desert with Dubai's premier desert safari tour operator. We offer unforgettable adventures including thrilling dune bashing, peaceful camel rides, mesmerizing sunset views, traditional BBQ dinners, and authentic cultural entertainment.",
+    description:
+      "Experience the magic of the Arabian desert with Dubai's premier desert safari tour operator. We offer unforgettable adventures including thrilling dune bashing, peaceful camel rides, mesmerizing sunset views, traditional BBQ dinners, and authentic cultural entertainment.",
     url: baseUrl,
     image: `${baseUrl}/og-image.png`,
     touristType: ["Adventure seekers", "Families", "Couples", "Groups"],
@@ -273,7 +260,8 @@ export const generateWebsiteSchema = (baseUrl: string) => {
     "@id": `${baseUrl}/#website`,
     name: "Desert Safari Dubai",
     url: baseUrl,
-    description: "Book your desert safari adventure in Dubai. Experience dune bashing, camel rides, BBQ dinner, and traditional entertainment.",
+    description:
+      "Book your desert safari adventure in Dubai. Experience dune bashing, camel rides, BBQ dinner, and traditional entertainment.",
     publisher: {
       "@type": "Organization",
       name: "Desert Safari Dubai",
