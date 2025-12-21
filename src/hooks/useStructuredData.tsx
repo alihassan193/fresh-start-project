@@ -30,7 +30,7 @@ export const useStructuredData = ({ data, id = "structured-data" }: StructuredDa
 };
 
 export const generateItemListSchema = (items: any[], baseUrl: string) => {
-  const imgUrl = "https://backend.desertsafaridubai.ae";
+  const imgUrl = "https://backend.desert-safaridubai.ae";
   
   return {
     "@context": "https://schema.org",
@@ -69,7 +69,7 @@ export const generateItemListSchema = (items: any[], baseUrl: string) => {
 };
 
 export const generateProductSchema = (pkg: any, baseUrl: string) => {
-  const imgUrl = "https://backend.desertsafaridubai.ae";
+  const imgUrl = "https://backend.desert-safaridubai.ae";
   const images = [pkg.packagemainimage, pkg.packagesideimage1, pkg.packagesideimage2]
     .filter(Boolean)
     .map((img) => `${imgUrl}${img}`);
@@ -118,7 +118,7 @@ export const generateFAQSchema = (faqs: any[]) => {
 };
 
 export const generateImageCarouselSchema = (images: string[], pkg: any, baseUrl: string) => {
-  const imgUrl = "https://backend.desertsafaridubai.ae";
+  const imgUrl = "https://backend.desert-safaridubai.ae";
 
   return {
     "@context": "https://schema.org",
@@ -181,7 +181,7 @@ export const generateLocalBusinessSchema = (baseUrl: string) => {
     logo: `${baseUrl}/og-image.png`,
     image: `${baseUrl}/og-image.png`,
     telephone: "+971501748638",
-    email: "info@desertsafaridubai.ae",
+    email: "info@desert-safaridubai.ae",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Dubai Marina, Sheikh Zayed Road",
