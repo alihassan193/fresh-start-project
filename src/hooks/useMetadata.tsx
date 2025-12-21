@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { contentApi } from '@/lib/api';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { contentApi } from "@/lib/api";
 
 interface MetaData {
   meta_title?: string;
@@ -16,16 +16,19 @@ interface MetaData {
 }
 
 const DEFAULT_META: MetaData = {
-  meta_title: 'Desert Safari Dubai - Best Dubai Desert Safari Tours & Packages',
-  meta_description: 'Experience the ultimate desert safari adventure in Dubai. Choose from evening safaris, VIP tours, overnight camping & more. Book your Dubai desert safari today!',
-  meta_keywords: 'desert safari Dubai, Dubai desert safari, desert safari tours, Dubai adventure, dune bashing, camel ride, BBQ dinner, desert safari packages',
-  og_title: 'Desert Safari Dubai - Unforgettable Desert Adventures',
-  og_description: 'Explore the best desert safari experiences in Dubai with dune bashing, camel rides, BBQ dinners and cultural entertainment. Book now!',
-  og_image: 'https://desert-safaridubai.ae/assets/images/logos/favicon.png',
-  canonical_url: 'https://desert-safaridubai.ae',
-  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-  author: 'Desert Safari Dubai',
-  publisher: 'Desert Safari Dubai'
+  meta_title: "Desert Safari Dubai - Best Dubai Desert Safari Tours & Packages",
+  meta_description:
+    "Experience the ultimate desert safari adventure in Dubai. Choose from evening safaris, VIP tours, overnight camping & more. Book your Dubai desert safari today!",
+  meta_keywords:
+    "desert safari Dubai, Dubai desert safari, desert safari tours, Dubai adventure, dune bashing, camel ride, BBQ dinner, desert safari packages",
+  og_title: "Desert Safari Dubai - Unforgettable Desert Adventures",
+  og_description:
+    "Explore the best desert safari experiences in Dubai with dune bashing, camel rides, BBQ dinners and cultural entertainment. Book now!",
+  og_image: "https://desert-safaridubai.ae/assets/images/logos/favicon.png",
+  canonical_url: "https://desert-safaridubai.ae",
+  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  author: "Crown Arabia Tourisim || Ali Hassan",
+  publisher: "Desert Safari Dubai",
 };
 
 export const useMetadata = () => {
@@ -35,14 +38,14 @@ export const useMetadata = () => {
     const fetchAndApplyMetadata = async () => {
       try {
         const response = await contentApi.getMetaByUrl(location.pathname);
-        
+
         if (response.success && response.data) {
           applyMetadata(response.data);
         } else {
           applyMetadata(DEFAULT_META);
         }
       } catch (error) {
-        console.log('No metadata found for this page, using defaults');
+        console.log("No metadata found for this page, using defaults");
         applyMetadata(DEFAULT_META);
       }
     };
@@ -58,46 +61,40 @@ const applyMetadata = (meta: MetaData) => {
   }
 
   // Update or create meta tags
-  updateMetaTag('name', 'description', meta.meta_description);
-  updateMetaTag('name', 'keywords', meta.meta_keywords);
-  
+  updateMetaTag("name", "description", meta.meta_description);
+  updateMetaTag("name", "keywords", meta.meta_keywords);
+
   // SEO meta tags
-  updateMetaTag('name', 'robots', meta.robots || DEFAULT_META.robots);
-  updateMetaTag('name', 'author', meta.author || DEFAULT_META.author);
-  updateMetaTag('name', 'publisher', meta.publisher || DEFAULT_META.publisher);
-  
+  updateMetaTag("name", "robots", meta.robots || DEFAULT_META.robots);
+  updateMetaTag("name", "author", meta.author || DEFAULT_META.author);
+  updateMetaTag("name", "publisher", meta.publisher || DEFAULT_META.publisher);
+
   // Open Graph tags
-  updateMetaTag('property', 'og:title', meta.og_title);
-  updateMetaTag('property', 'og:description', meta.og_description);
-  updateMetaTag('property', 'og:image', meta.og_image);
-  updateMetaTag('property', 'og:type', 'website');
-  updateMetaTag('property', 'og:site_name', 'Desert Safari Dubai');
-  
+  updateMetaTag("property", "og:title", meta.og_title);
+  updateMetaTag("property", "og:description", meta.og_description);
+  updateMetaTag("property", "og:image", meta.og_image);
+  updateMetaTag("property", "og:type", "website");
+  updateMetaTag("property", "og:site_name", "Desert Safari Dubai");
+
   // Twitter Card tags
-  updateMetaTag('name', 'twitter:card', 'summary_large_image');
-  updateMetaTag('name', 'twitter:title', meta.og_title);
-  updateMetaTag('name', 'twitter:description', meta.og_description);
-  updateMetaTag('name', 'twitter:image', meta.og_image);
+  updateMetaTag("name", "twitter:card", "summary_large_image");
+  updateMetaTag("name", "twitter:title", meta.og_title);
+  updateMetaTag("name", "twitter:description", meta.og_description);
+  updateMetaTag("name", "twitter:image", meta.og_image);
 
   // Canonical URL
   updateCanonicalLink(meta.canonical_url);
 };
 
-const updateMetaTag = (
-  attribute: 'name' | 'property',
-  attributeValue: string,
-  content?: string
-) => {
+const updateMetaTag = (attribute: "name" | "property", attributeValue: string, content?: string) => {
   if (!content) return;
 
-  let element = document.querySelector(
-    `meta[${attribute}="${attributeValue}"]`
-  ) as HTMLMetaElement;
+  let element = document.querySelector(`meta[${attribute}="${attributeValue}"]`) as HTMLMetaElement;
 
   if (element) {
     element.content = content;
   } else {
-    element = document.createElement('meta');
+    element = document.createElement("meta");
     element.setAttribute(attribute, attributeValue);
     element.content = content;
     document.head.appendChild(element);
@@ -112,8 +109,8 @@ const updateCanonicalLink = (url?: string) => {
   if (element) {
     element.href = url;
   } else {
-    element = document.createElement('link');
-    element.rel = 'canonical';
+    element = document.createElement("link");
+    element.rel = "canonical";
     element.href = url;
     document.head.appendChild(element);
   }
