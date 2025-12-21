@@ -1,6 +1,8 @@
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { tripAdvisorApi, TripAdvisorReview } from "@/lib/api";
 
 const TripAdvisorIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#00AA6C]">
@@ -8,39 +10,69 @@ const TripAdvisorIcon = () => (
   </svg>
 );
 
-const reviews = [
+// Fallback reviews when API is not available
+const fallbackReviews: TripAdvisorReview[] = [
   {
     id: 1,
-    author: "Sarah M.",
-    location: "London, UK",
+    author_name: "Sarah M.",
+    author_location: "London, UK",
     rating: 5,
-    date: "December 2024",
-    title: "Unforgettable Desert Experience!",
-    content: "This was the highlight of our Dubai trip! The dune bashing was thrilling, the sunset views were breathtaking, and the BBQ dinner under the stars was delicious. Our guide Ahmed was fantastic - knowledgeable and fun!",
+    review_date: "December 2024",
+    review_title: "Unforgettable Desert Experience!",
+    review_content: "This was the highlight of our Dubai trip! The dune bashing was thrilling, the sunset views were breathtaking, and the BBQ dinner under the stars was delicious. Our guide Ahmed was fantastic - knowledgeable and fun!",
+    is_featured: 1,
+    created_at: "",
   },
   {
     id: 2,
-    author: "James T.",
-    location: "Sydney, Australia",
+    author_name: "James T.",
+    author_location: "Sydney, Australia",
     rating: 5,
-    date: "November 2024",
-    title: "Best Safari Tour in Dubai",
-    content: "We've done safaris before but this was exceptional. The camp setup was beautiful with traditional Arabic decorations. Kids loved the camel rides and henna painting. Highly recommend the overnight camping option!",
+    review_date: "November 2024",
+    review_title: "Best Safari Tour in Dubai",
+    review_content: "We've done safaris before but this was exceptional. The camp setup was beautiful with traditional Arabic decorations. Kids loved the camel rides and henna painting. Highly recommend the overnight camping option!",
+    is_featured: 1,
+    created_at: "",
   },
   {
     id: 3,
-    author: "Maria G.",
-    location: "Barcelona, Spain",
+    author_name: "Maria G.",
+    author_location: "Barcelona, Spain",
     rating: 5,
-    date: "November 2024",
-    title: "Professional Service, Amazing Views",
-    content: "From pickup to drop-off, everything was perfectly organized. The sunset photography spots they took us to were incredible. The traditional entertainment including belly dancing and tanoura show was mesmerizing.",
+    review_date: "November 2024",
+    review_title: "Professional Service, Amazing Views",
+    review_content: "From pickup to drop-off, everything was perfectly organized. The sunset photography spots they took us to were incredible. The traditional entertainment including belly dancing and tanoura show was mesmerizing.",
+    is_featured: 1,
+    created_at: "",
   },
 ];
 
 const TripAdvisorReviews = () => {
-  const averageRating = 4.9;
+  const [reviews, setReviews] = useState<TripAdvisorReview[]>(fallbackReviews);
+  const [isLoading, setIsLoading] = useState(true);
   const totalReviews = 2847;
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await tripAdvisorApi.getFeatured();
+        if (response.success && response.data && response.data.length > 0) {
+          setReviews(response.data);
+        }
+      } catch (error) {
+        // Use fallback reviews on error
+        console.log("Using fallback reviews");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchReviews();
+  }, []);
+
+  // Calculate average rating
+  const averageRating = reviews.length > 0 
+    ? parseFloat((reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1))
+    : 4.9;
 
   return (
     <section className="py-20 bg-gradient-to-b from-background to-muted/30">
@@ -75,7 +107,7 @@ const TripAdvisorReviews = () => {
 
         {/* Reviews grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {reviews.map((review) => (
+          {reviews.slice(0, 3).map((review) => (
             <Card 
               key={review.id} 
               className="bg-card border-border hover:shadow-lg transition-shadow duration-300"
@@ -93,19 +125,19 @@ const TripAdvisorReviews = () => {
 
                 {/* Review title */}
                 <h3 className="font-semibold text-foreground mb-2 line-clamp-1">
-                  {review.title}
+                  {review.review_title}
                 </h3>
 
                 {/* Review content */}
                 <p className="text-muted-foreground text-sm mb-4 line-clamp-4">
-                  "{review.content}"
+                  "{review.review_content}"
                 </p>
 
                 {/* Author info */}
                 <div className="border-t border-border pt-4">
-                  <p className="font-medium text-foreground">{review.author}</p>
-                  <p className="text-sm text-muted-foreground">{review.location}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{review.date}</p>
+                  <p className="font-medium text-foreground">{review.author_name}</p>
+                  <p className="text-sm text-muted-foreground">{review.author_location}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{review.review_date}</p>
                 </div>
               </CardContent>
             </Card>

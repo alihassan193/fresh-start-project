@@ -774,3 +774,46 @@ export const pageContentApi = {
     return makeRequest(`/public/pages/package/${packageId}`);
   },
 };
+
+// TripAdvisor Review Interface
+export interface TripAdvisorReview {
+  id: number;
+  author_name: string;
+  author_location: string;
+  rating: number;
+  review_date: string;
+  review_title: string;
+  review_content: string;
+  is_featured: number;
+  created_at: string;
+}
+
+// Public TripAdvisor Reviews API
+export const tripAdvisorApi = {
+  getAll: async (): Promise<ApiResponse<TripAdvisorReview[]>> => {
+    return makeRequest("/public/tripadvisor-reviews");
+  },
+  getFeatured: async (): Promise<ApiResponse<TripAdvisorReview[]>> => {
+    return makeRequest("/public/tripadvisor-reviews/featured");
+  },
+};
+
+// Admin TripAdvisor Reviews APIs
+export const adminTripAdvisorApi = {
+  getAll: async () => makeAdminRequest("/tripadvisor-reviews"),
+  create: async (data: Partial<TripAdvisorReview>) => {
+    return makeAdminRequest("/tripadvisor-reviews", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  },
+  update: async (id: number, data: Partial<TripAdvisorReview>) => {
+    return makeAdminRequest(`/tripadvisor-reviews/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
+  },
+  delete: async (id: number) => {
+    return makeAdminRequest(`/tripadvisor-reviews/${id}`, { method: "DELETE" });
+  },
+};

@@ -39,6 +39,7 @@ const AdminEnquiries = lazy(() => import("./pages/admin/Enquiries"));
 const AdminMedia = lazy(() => import("./pages/admin/Media"));
 const AdminGallery = lazy(() => import("./pages/admin/Gallery"));
 const AdminTestimonials = lazy(() => import("./pages/admin/Testimonials"));
+const AdminTripAdvisorReviews = lazy(() => import("./pages/admin/TripAdvisorReviews"));
 const AdminMetaData = lazy(() => import("./pages/admin/MetaData"));
 const AdminFeatures = lazy(() => import("./pages/admin/Features"));
 const AdminPackageTypes = lazy(() => import("./pages/admin/PackageTypes"));
@@ -217,6 +218,10 @@ const App = () => (
                     <Route
                       path="testimonials"
                       element={<AdminTestimonials />}
+                    />
+                    <Route
+                      path="tripadvisor-reviews"
+                      element={<AdminTripAdvisorReviews />}
                     />
                     <Route path="meta" element={<AdminMetaData />} />
                   </Route>
