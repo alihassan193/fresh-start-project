@@ -5,6 +5,9 @@ import { Clock, MapPin, Tag } from "lucide-react";
 import { packageApi, Package, IMAGE_BASE_URL } from "@/lib/api";
 import safariImage from "@/assets/safari-adventure.jpg";
 import { Link } from "react-router-dom";
+import { useStructuredData, generateItemListSchema } from "@/hooks/useStructuredData";
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 const FeaturedPackages = () => {
   const [packages, setPackages] = useState<Package[]>([]);
@@ -13,6 +16,12 @@ const FeaturedPackages = () => {
   useEffect(() => {
     fetchFeaturedPackages();
   }, []);
+
+  // Add Product schema for featured packages
+  useStructuredData({
+    data: packages.length > 0 ? generateItemListSchema(packages, BASE_URL) : {},
+    id: "featured-products-schema",
+  });
 
   const fetchFeaturedPackages = async () => {
     try {

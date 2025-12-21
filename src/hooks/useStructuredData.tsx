@@ -30,6 +30,8 @@ export const useStructuredData = ({ data, id = "structured-data" }: StructuredDa
 };
 
 export const generateItemListSchema = (items: any[], baseUrl: string) => {
+  const imgUrl = "https://backend.desertsafaridubai.ae";
+  
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -40,19 +42,26 @@ export const generateItemListSchema = (items: any[], baseUrl: string) => {
         "@type": "Product",
         name: item.packagename,
         description: item.packagedescription,
-        image: `${baseUrl}/${item.packagemainimage}`,
+        image: item.packagefeatureimage ? `${imgUrl}${item.packagefeatureimage}` : `${baseUrl}/og-image.png`,
         url: `${baseUrl}/tours/${item.slug}`,
+        sku: item.id || item.slug,
+        brand: {
+          "@type": "Brand",
+          name: "Desert Safari Dubai",
+        },
         offers: {
           "@type": "Offer",
-          price: item.packageprice,
+          price: String(item.packageprice),
           priceCurrency: "AED",
           availability: "https://schema.org/InStock",
           url: `${baseUrl}/tours/${item.slug}`,
+          priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split("T")[0],
         },
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: "4.8",
           reviewCount: "245",
+          bestRating: "5",
         },
       },
     })),
