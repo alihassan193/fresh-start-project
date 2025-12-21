@@ -10,6 +10,9 @@ interface MetaData {
   og_description?: string;
   og_image?: string;
   canonical_url?: string;
+  robots?: string;
+  author?: string;
+  publisher?: string;
 }
 
 const DEFAULT_META: MetaData = {
@@ -19,7 +22,10 @@ const DEFAULT_META: MetaData = {
   og_title: 'Desert Safari Dubai - Unforgettable Desert Adventures',
   og_description: 'Explore the best desert safari experiences in Dubai with dune bashing, camel rides, BBQ dinners and cultural entertainment. Book now!',
   og_image: 'https://desert-safaridubai.ae/assets/images/logos/favicon.png',
-  canonical_url: 'https://desert-safaridubai.ae'
+  canonical_url: 'https://desert-safaridubai.ae',
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  author: 'Desert Safari Dubai',
+  publisher: 'Desert Safari Dubai'
 };
 
 export const useMetadata = () => {
@@ -55,11 +61,17 @@ const applyMetadata = (meta: MetaData) => {
   updateMetaTag('name', 'description', meta.meta_description);
   updateMetaTag('name', 'keywords', meta.meta_keywords);
   
+  // SEO meta tags
+  updateMetaTag('name', 'robots', meta.robots || DEFAULT_META.robots);
+  updateMetaTag('name', 'author', meta.author || DEFAULT_META.author);
+  updateMetaTag('name', 'publisher', meta.publisher || DEFAULT_META.publisher);
+  
   // Open Graph tags
   updateMetaTag('property', 'og:title', meta.og_title);
   updateMetaTag('property', 'og:description', meta.og_description);
   updateMetaTag('property', 'og:image', meta.og_image);
   updateMetaTag('property', 'og:type', 'website');
+  updateMetaTag('property', 'og:site_name', 'Desert Safari Dubai');
   
   // Twitter Card tags
   updateMetaTag('name', 'twitter:card', 'summary_large_image');
