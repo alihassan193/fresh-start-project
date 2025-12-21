@@ -8,6 +8,7 @@ import {
   generateLocalBusinessSchema,
   generateTourOperatorSchema,
   generateWebsiteSchema,
+  generatePageBreadcrumbSchema,
 } from "@/hooks/useStructuredData";
 
 // Lazy load below-the-fold components
@@ -34,6 +35,12 @@ const Index = () => {
   useStructuredData({
     data: generateWebsiteSchema(BASE_URL),
     id: "website-schema",
+  });
+
+  // Homepage breadcrumb (just home)
+  useStructuredData({
+    data: generatePageBreadcrumbSchema([], BASE_URL),
+    id: "breadcrumb-schema",
   });
 
   return (

@@ -13,8 +13,19 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+import { useStructuredData, generatePageBreadcrumbSchema } from "@/hooks/useStructuredData";
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 const About = () => {
+  // Add breadcrumb schema
+  useStructuredData({
+    data: generatePageBreadcrumbSchema(
+      [{ name: "About Us", url: `${BASE_URL}/about` }],
+      BASE_URL
+    ),
+    id: "breadcrumb-schema",
+  });
   const stats = [
     { icon: Users, label: "Happy Customers", value: "10,000+" },
     { icon: Star, label: "Average Rating", value: "4.9" },
