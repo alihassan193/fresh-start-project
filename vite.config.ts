@@ -12,12 +12,12 @@ const criticalCssPlugin = (): Plugin => {
     async transformIndexHtml(html, ctx) {
       // Only run in build mode when bundle is available
       if (!ctx.bundle) return html;
-      
+
       try {
         // Dynamically import critters to avoid issues during dev
         // @ts-ignore - critters types are not properly exported
         const Critters = (await import("critters")).default;
-        
+
         const critters = new Critters({
           // Inline critical CSS
           preload: "swap", // Use swap for async loading
@@ -28,7 +28,7 @@ const criticalCssPlugin = (): Plugin => {
           compress: true,
           logLevel: "silent",
         });
-        
+
         return await critters.process(html);
       } catch (error) {
         console.warn("Critical CSS extraction failed:", error);
@@ -60,30 +60,18 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          "react-vendor": ["react", "react-dom"],
-          "router": ["react-router-dom"],
-          "ui-core": [
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "ui-vendor": [
             "@radix-ui/react-dialog",
-            "@radix-ui/react-slot",
-          ],
-          "ui-menu": [
             "@radix-ui/react-dropdown-menu",
-            "@radix-ui/react-navigation-menu",
-          ],
-          "ui-form": [
             "@radix-ui/react-select",
-            "@radix-ui/react-checkbox",
-            "@radix-ui/react-label",
           ],
           "form-vendor": ["react-hook-form", "@hookform/resolvers", "zod"],
-          "query": ["@tanstack/react-query"],
         },
       },
     },
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 600,
     target: "esnext",
     minify: "esbuild",
-    sourcemap: false,
-    reportCompressedSize: false,
   },
 }));

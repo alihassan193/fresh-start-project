@@ -4,48 +4,140 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desert Safari Dubai - Premium Desert Adventures & Tours</title>
-    
+
     <!-- Preconnect to critical origins FIRST -->
-    <link rel="preconnect" href="https://backend.desert-safaridubai.ae" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://backend.desert-safaridubai.ae"
+      crossorigin
+    />
     <link rel="dns-prefetch" href="https://backend.desert-safaridubai.ae" />
-    
+
     <!-- Preload LCP hero image with high priority -->
-    <link rel="preload" as="image" href="/assets/hero-desert-camp-CLPtIQFf.jpg" fetchpriority="high" type="image/jpeg" />
-    
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero-desert-camp-CLPtIQFf.jpg"
+      fetchpriority="high"
+      type="image/jpeg"
+    />
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/images/logos/favicon.png" />
-    
+
     <!-- Critical CSS inlined for instant FCP/LCP -->
     <style>
-      :root{--background:0 0% 100%;--foreground:25 25% 15%;--primary:25 85% 55%;--primary-foreground:0 0% 100%;--desert-gold:35 85% 55%;--desert-sunset:25 90% 50%;--border:35 20% 88%;--ring:25 85% 55%;--radius:0.5rem}
-      *,*::before,*::after{box-sizing:border-box;border-width:0;border-style:solid}
-      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,sans-serif}
-      body{margin:0;background-color:hsl(var(--background));color:hsl(var(--foreground))}
-      #root{min-height:100vh}
-      .min-h-screen{min-height:100vh}
-      .bg-background{background-color:hsl(var(--background))}
-      .relative{position:relative}
-      .absolute{position:absolute}
-      .flex{display:flex}
-      .items-center{align-items:center}
-      .justify-center{justify-content:center}
-      .justify-between{justify-content:space-between}
-      .bg-cover{background-size:cover}
-      .bg-center{background-position:center}
-      .bg-no-repeat{background-repeat:no-repeat}
-      .text-center{text-align:center}
-      .text-white{color:#fff}
-      .container{width:100%;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
-      .w-full{width:100%}
-      .z-50{z-index:50}
-      .top-0{top:0}
-      .left-0{left:0}
-      @media(min-width:640px){.container{max-width:640px}}
-      @media(min-width:768px){.container{max-width:768px}}
-      @media(min-width:1024px){.container{max-width:1024px}}
-      @media(min-width:1280px){.container{max-width:1280px}}
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 25 25% 15%;
+        --primary: 25 85% 55%;
+        --primary-foreground: 0 0% 100%;
+        --desert-gold: 35 85% 55%;
+        --desert-sunset: 25 90% 50%;
+        --border: 35 20% 88%;
+        --ring: 25 85% 55%;
+        --radius: 0.5rem;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+      }
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+      }
+      #root {
+        min-height: 100vh;
+      }
+      .min-h-screen {
+        min-height: 100vh;
+      }
+      .bg-background {
+        background-color: hsl(var(--background));
+      }
+      .relative {
+        position: relative;
+      }
+      .absolute {
+        position: absolute;
+      }
+      .flex {
+        display: flex;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .bg-cover {
+        background-size: cover;
+      }
+      .bg-center {
+        background-position: center;
+      }
+      .bg-no-repeat {
+        background-repeat: no-repeat;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-white {
+        color: #fff;
+      }
+      .container {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .z-50 {
+        z-index: 50;
+      }
+      .top-0 {
+        top: 0;
+      }
+      .left-0 {
+        left: 0;
+      }
+      @media (min-width: 640px) {
+        .container {
+          max-width: 640px;
+        }
+      }
+      @media (min-width: 768px) {
+        .container {
+          max-width: 768px;
+        }
+      }
+      @media (min-width: 1024px) {
+        .container {
+          max-width: 1024px;
+        }
+      }
+      @media (min-width: 1280px) {
+        .container {
+          max-width: 1280px;
+        }
+      }
     </style>
-    
+
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
@@ -53,30 +145,35 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    
+
     <!-- Defer Google Tag Manager until after page is interactive -->
     <script>
       // Load GTM only after page becomes interactive
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(function() {
-          loadGTM();
-        }, { timeout: 4000 });
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(
+          function () {
+            loadGTM();
+          },
+          { timeout: 4000 }
+        );
       } else {
         setTimeout(loadGTM, 3500);
       }
-      
+
       function loadGTM() {
-        var s = document.createElement('script');
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-X1CQHS2SKL';
+        var s = document.createElement("script");
+        s.src = "https://www.googletagmanager.com/gtag/js?id=G-X1CQHS2SKL";
         s.async = true;
         document.head.appendChild(s);
-        
+
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+        function gtag() {
+          dataLayer.push(arguments);
+        }
         window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-X1CQHS2SKL');
-        gtag('config', 'AW-17058034465');
+        gtag("js", new Date());
+        gtag("config", "G-X1CQHS2SKL");
+        gtag("config", "AW-17058034465");
       }
     </script>
   </body>
