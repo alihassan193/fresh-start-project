@@ -1,9 +1,20 @@
 import { lazy } from "react";
 import Header from "@/components/Header";
+import { useStructuredData, generatePageBreadcrumbSchema } from "@/hooks/useStructuredData";
 
 const Footer = lazy(() => import("@/components/Footer"));
 
+const BASE_URL = "https://desert-safaridubai.ae";
+
 const Privacy = () => {
+  // Add breadcrumb schema
+  useStructuredData({
+    data: generatePageBreadcrumbSchema(
+      [{ name: "Privacy Policy", url: `${BASE_URL}/privacy-policy` }],
+      BASE_URL
+    ),
+    id: "breadcrumb-schema",
+  });
   return (
     <div className="min-h-screen bg-background">
       <Header />

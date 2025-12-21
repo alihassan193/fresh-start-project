@@ -8,8 +8,19 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Calendar } from "lucide-react";
 import { blogApi, Blog, IMAGE_BASE_URL } from "@/lib/api";
+import { useStructuredData, generatePageBreadcrumbSchema } from "@/hooks/useStructuredData";
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 const Blogs = () => {
+  // Add breadcrumb schema
+  useStructuredData({
+    data: generatePageBreadcrumbSchema(
+      [{ name: "Blog", url: `${BASE_URL}/blogs` }],
+      BASE_URL
+    ),
+    id: "breadcrumb-schema",
+  });
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({

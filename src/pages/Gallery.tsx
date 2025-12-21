@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/dialog";
 import { Image, Play, X } from "lucide-react";
 import { contentApi, IMAGE_BASE_URL } from "@/lib/api";
+import { useStructuredData, generatePageBreadcrumbSchema } from "@/hooks/useStructuredData";
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 interface GalleryItem {
   id: number;
@@ -23,6 +26,14 @@ interface GalleryItem {
 }
 
 const Gallery = () => {
+  // Add breadcrumb schema
+  useStructuredData({
+    data: generatePageBreadcrumbSchema(
+      [{ name: "Gallery", url: `${BASE_URL}/gallery` }],
+      BASE_URL
+    ),
+    id: "breadcrumb-schema",
+  });
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("all");

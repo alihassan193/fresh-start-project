@@ -30,7 +30,10 @@ import { packageApi, Package, ApiResponse, IMAGE_BASE_URL } from "@/lib/api";
 import {
   useStructuredData,
   generateItemListSchema,
+  generatePageBreadcrumbSchema,
 } from "@/hooks/useStructuredData";
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 interface PackageType {
   id: number;
@@ -72,10 +75,18 @@ const Tours = () => {
   }, [filters]);
 
   // Add structured data for carousel/item list
-  const baseUrl = window.location.origin;
   useStructuredData({
-    data: generateItemListSchema(packages, baseUrl),
+    data: generateItemListSchema(packages, BASE_URL),
     id: "tours-itemlist-schema",
+  });
+
+  // Add breadcrumb schema
+  useStructuredData({
+    data: generatePageBreadcrumbSchema(
+      [{ name: "Tours", url: `${BASE_URL}/tours` }],
+      BASE_URL
+    ),
+    id: "breadcrumb-schema",
   });
 
   const fetchPackageTypes = async () => {

@@ -1,8 +1,19 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
+import { useStructuredData, generatePageBreadcrumbSchema } from "@/hooks/useStructuredData";
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 const ContactUs = () => {
+  // Add breadcrumb schema
+  useStructuredData({
+    data: generatePageBreadcrumbSchema(
+      [{ name: "Contact Us", url: `${BASE_URL}/contact` }],
+      BASE_URL
+    ),
+    id: "breadcrumb-schema",
+  });
   return (
     <div className="min-h-screen bg-background">
       <Header />

@@ -168,6 +168,88 @@ export const generateBreadcrumbSchema = (pkg: any, baseUrl: string) => {
   };
 };
 
+// Generic breadcrumb for any page
+export const generatePageBreadcrumbSchema = (
+  breadcrumbs: { name: string; url: string }[],
+  baseUrl: string
+) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@id": baseUrl,
+          name: "Home",
+        },
+      },
+      ...breadcrumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 2,
+        item: {
+          "@id": crumb.url,
+          name: crumb.name,
+        },
+      })),
+    ],
+  };
+};
+
+// Aggregate Review schema for TripAdvisor reviews
+export interface ReviewData {
+  author_name: string;
+  rating: number;
+  review_title: string;
+  review_content: string;
+  review_date: string;
+}
+
+export const generateAggregateReviewSchema = (
+  reviews: ReviewData[],
+  baseUrl: string,
+  totalReviewCount: number = 2847
+) => {
+  const averageRating =
+    reviews.length > 0
+      ? parseFloat(
+          (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+        )
+      : 4.9;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${baseUrl}/#reviews`,
+    name: "Desert Safari Dubai",
+    url: baseUrl,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: String(averageRating),
+      reviewCount: String(totalReviewCount),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: reviews.slice(0, 5).map((review) => ({
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: review.author_name,
+      },
+      datePublished: review.review_date,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: String(review.rating),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      name: review.review_title,
+      reviewBody: review.review_content,
+    })),
+  };
+};
+
 export const generateLocalBusinessSchema = (baseUrl: string) => {
   return {
     "@context": "https://schema.org",

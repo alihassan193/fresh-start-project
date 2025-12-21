@@ -3,12 +3,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { tripAdvisorApi, TripAdvisorReview } from "@/lib/api";
+import { useStructuredData, generateAggregateReviewSchema } from "@/hooks/useStructuredData";
 
 const TripAdvisorIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#00AA6C]">
     <path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.04 10.43 5.976 5.976 0 0 0 4.075-1.6L12 19.705l1.922-2.09a5.972 5.972 0 0 0 4.072 1.598 5.997 5.997 0 0 0 4.04-10.43L24 6.647h-4.35a13.573 13.573 0 0 0-7.644-2.352zM12 6.255c1.531 0 3.063.303 4.504.91C14.943 8.11 14 9.94 14 12a6.02 6.02 0 0 0 1.262 3.673L12 19.102l-3.262-3.43A6.018 6.018 0 0 0 10 12c0-2.06-.943-3.89-2.504-4.835A11.54 11.54 0 0 1 12 6.255zM6.003 8.015a3.988 3.988 0 1 1 0 7.976 3.988 3.988 0 0 1 0-7.976zm11.994 0a3.988 3.988 0 1 1 0 7.976 3.988 3.988 0 0 1 0-7.976zM6.003 9.52a2.482 2.482 0 1 0 0 4.964 2.482 2.482 0 0 0 0-4.963zm11.994 0a2.482 2.482 0 1 0 0 4.964 2.482 2.482 0 0 0 0-4.963z"/>
   </svg>
 );
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 // Fallback reviews when API is not available
 const fallbackReviews: TripAdvisorReview[] = [
@@ -73,6 +76,12 @@ const TripAdvisorReviews = () => {
   const averageRating = reviews.length > 0 
     ? parseFloat((reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1))
     : 4.9;
+
+  // Add aggregate review schema for rich snippets
+  useStructuredData({
+    data: generateAggregateReviewSchema(reviews, BASE_URL, totalReviews),
+    id: "aggregate-review-schema",
+  });
 
   return (
     <section className="py-20 bg-gradient-to-b from-background to-muted/30">

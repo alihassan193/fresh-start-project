@@ -6,12 +6,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, ArrowLeft, Share2 } from "lucide-react";
 import { blogApi, Blog, IMAGE_BASE_URL } from "@/lib/api";
+import { useStructuredData, generatePageBreadcrumbSchema } from "@/hooks/useStructuredData";
+
+const BASE_URL = "https://desert-safaridubai.ae";
 
 const BlogDetails = () => {
   const { slug } = useParams<{ slug: string }>();
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
+
+  // Add breadcrumb schema
+  useStructuredData({
+    data: generatePageBreadcrumbSchema(
+      [
+        { name: "Blog", url: `${BASE_URL}/blogs` },
+        { name: blog?.blog_name || "Article", url: `${BASE_URL}/blogs/${slug}` },
+      ],
+      BASE_URL
+    ),
+    id: "breadcrumb-schema",
+  });
 
   useEffect(() => {
     if (slug) {
