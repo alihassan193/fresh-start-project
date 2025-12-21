@@ -45,6 +45,7 @@ const menuItems = [
   { title: "Media", url: "/admin/media", icon: Upload },
   { title: "Gallery", url: "/admin/gallery", icon: Image },
   { title: "Testimonials", url: "/admin/testimonials", icon: Star },
+  { title: "TripAdvisor Reviews", url: "/admin/tripadvisor-reviews", icon: Star },
   { title: "SEO Meta", url: "/admin/meta", icon: Search },
 ];
 
