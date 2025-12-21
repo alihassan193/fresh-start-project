@@ -16,7 +16,7 @@ const Testimonials = lazy(() => import("@/components/Testimonials"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 
-const BASE_URL = "https://desertsafaridubai.ae";
+const BASE_URL = "https://desert-safaridubai.ae";
 
 const Index = () => {
   // Add structured data for SEO
@@ -42,11 +42,13 @@ const Index = () => {
         <Hero />
         <FeaturedPackages />
         <TourTypes />
-        <Suspense fallback={
-          <div className="h-20 flex items-center justify-center" role="status" aria-live="polite">
-            <span className="sr-only">Loading additional content</span>
-          </div>
-        }>
+        <Suspense
+          fallback={
+            <div className="h-20 flex items-center justify-center" role="status" aria-live="polite">
+              <span className="sr-only">Loading additional content</span>
+            </div>
+          }
+        >
           <DesertOffers />
           <Testimonials />
           <Contact />
