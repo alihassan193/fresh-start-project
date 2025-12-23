@@ -21,6 +21,7 @@ const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
 const BookingConfirmation = lazy(() => import("./pages/BookingConfirmation"));
 const Sitemap = lazy(() => import("./pages/Sitemap"));
+const SitemapXml = lazy(() => import("./pages/SitemapXml"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Lazy load admin pages
@@ -173,6 +174,10 @@ const App = () => (
                         <Sitemap />
                       </>
                     }
+                  />
+                  <Route
+                    path="/sitemap.xml"
+                    element={<SitemapXml />}
                   />
                   <Route
                     path="/terms"

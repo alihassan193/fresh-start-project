@@ -12,3 +12,12 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://desert-safaridubai.ae/sitemap.xml
+
+# Disallow admin and internal pages
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /booking-confirmation/
+Disallow: /thank-you
