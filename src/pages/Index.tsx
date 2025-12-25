@@ -15,6 +15,7 @@ import {
 const DesertOffers = lazy(() => import("@/components/DesertOffers"));
 const TripAdvisorReviews = lazy(() => import("@/components/TripAdvisorReviews"));
 const Testimonials = lazy(() => import("@/components/Testimonials"));
+const HomeFAQs = lazy(() => import("@/components/HomeFAQs"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 
@@ -60,6 +61,7 @@ const Index = () => {
           <DesertOffers />
           <TripAdvisorReviews />
           <Testimonials />
+          <HomeFAQs />
           <Contact />
           <Footer />
         </Suspense>
