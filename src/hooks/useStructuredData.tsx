@@ -368,3 +368,71 @@ export const generateWebsiteSchema = (baseUrl: string) => {
     },
   };
 };
+
+// Article schema for blog posts
+export interface BlogArticleData {
+  title: string;
+  description?: string;
+  content?: string;
+  slug: string;
+  featuredImage?: string;
+  category?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export const generateArticleSchema = (blog: BlogArticleData, baseUrl: string) => {
+  const imgUrl = "https://backend.desert-safaridubai.ae";
+  const articleUrl = `${baseUrl}/blogs/${blog.slug}`;
+  const imageUrl = blog.featuredImage 
+    ? `${imgUrl}${blog.featuredImage}` 
+    : `${baseUrl}/og-image.png`;
+
+  // Strip HTML tags for description
+  const plainDescription = blog.description || 
+    (blog.content ? blog.content.replace(/<[^>]*>/g, '').substring(0, 160) + '...' : '');
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${articleUrl}#article`,
+    headline: blog.title,
+    description: plainDescription,
+    image: {
+      "@type": "ImageObject",
+      url: imageUrl,
+      width: 1200,
+      height: 630,
+    },
+    datePublished: blog.createdAt,
+    dateModified: blog.updatedAt || blog.createdAt,
+    author: {
+      "@type": "Organization",
+      name: "Desert Safari Dubai",
+      url: baseUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/og-image.png`,
+      },
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Desert Safari Dubai",
+      url: baseUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/og-image.png`,
+        width: 600,
+        height: 60,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
+    articleSection: blog.category || "Travel",
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
+    keywords: "desert safari dubai, dubai tours, desert adventure, dune bashing, camel ride",
+  };
+};
