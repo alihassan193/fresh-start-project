@@ -1,9 +1,24 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Calendar } from "lucide-react";
 
 const BookNowFloat = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button after scrolling past hero section (approx 600px)
+      setIsVisible(window.scrollY > 600);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  if (!isVisible) return null;
+
   return (
-    <div className="fixed bottom-24 right-6 z-50">
+    <div className="fixed bottom-24 right-6 z-50 animate-fade-in">
       {/* Pulsing ring effect */}
       <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
       
