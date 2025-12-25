@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import BookNowFloat from "@/components/BookNowFloat";
 import FeaturedPackages from "@/components/FeaturedPackages";
 import TourTypes from "@/components/TourTypes";
 import {
@@ -47,6 +48,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <BookNowFloat />
       <div id="main-content">
         <Hero />
         <FeaturedPackages />
