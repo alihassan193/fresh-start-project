@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, ArrowLeft, Share2 } from "lucide-react";
 import { blogApi, Blog, IMAGE_BASE_URL } from "@/lib/api";
-import { useStructuredData, generatePageBreadcrumbSchema } from "@/hooks/useStructuredData";
+import { useStructuredData, generatePageBreadcrumbSchema, generateArticleSchema } from "@/hooks/useStructuredData";
 
 const BASE_URL = "https://desert-safaridubai.ae";
 
@@ -26,6 +26,25 @@ const BlogDetails = () => {
       BASE_URL
     ),
     id: "breadcrumb-schema",
+  });
+
+  // Add Article schema for SEO
+  useStructuredData({
+    data: blog
+      ? generateArticleSchema(
+          {
+            title: blog.blog_name,
+            content: blog.content,
+            slug: blog.slug,
+            featuredImage: blog.featured_image,
+            category: blog.category,
+            createdAt: blog.created_at,
+            updatedAt: blog.updated_at,
+          },
+          BASE_URL
+        )
+      : {},
+    id: "article-schema",
   });
 
   useEffect(() => {
