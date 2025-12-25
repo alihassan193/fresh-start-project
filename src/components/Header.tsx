@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -6,6 +7,17 @@ import MobileMenu from "@/components/MobileMenu";
 
 const Header = () => {
   const location = useLocation();
+  const [showStickyCTA, setShowStickyCTA] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show sticky CTA after scrolling past hero section (approx 600px)
+      setShowStickyCTA(window.scrollY > 600);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -18,7 +30,7 @@ const Header = () => {
       </a>
       
       <header 
-        className="absolute top-0 left-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm"
+        className="fixed top-0 left-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm"
         role="banner"
       >
         <div className="container mx-auto px-4 py-3 md:py-4">
@@ -129,6 +141,22 @@ const Header = () => {
             <MobileMenu />
           </div>
         </div>
+
+        {/* Sticky CTA - appears on scroll (mobile/tablet) */}
+        {showStickyCTA && (
+          <div className="lg:hidden border-t border-border/50 bg-background/98 backdrop-blur-md animate-fade-in">
+            <div className="container mx-auto px-4 py-2">
+              <Button
+                variant="hero"
+                size="lg"
+                asChild
+                className="w-full"
+              >
+                <Link to="/tours">Book Your Desert Safari Now</Link>
+              </Button>
+            </div>
+          </div>
+        )}
       </header>
     </>
   );
