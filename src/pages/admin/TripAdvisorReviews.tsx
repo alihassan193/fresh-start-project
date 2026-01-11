@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Edit, Trash2, Star } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function TripAdvisorReviews() {
   const [reviews, setReviews] = useState<TripAdvisorReview[]>([]);
@@ -26,6 +27,8 @@ export default function TripAdvisorReviews() {
     review_title: "",
     review_content: "",
     is_featured: 1,
+    status: "active",
+    display_order: 1,
   });
 
   useEffect(() => {
@@ -96,6 +99,8 @@ export default function TripAdvisorReviews() {
       review_title: review.review_title || "",
       review_content: review.review_content,
       is_featured: review.is_featured,
+      status: review.status || "active",
+      display_order: review.display_order || 1,
     });
     setIsDialogOpen(true);
   };
@@ -109,6 +114,8 @@ export default function TripAdvisorReviews() {
       review_title: "",
       review_content: "",
       is_featured: 1,
+      status: "active",
+      display_order: 1,
     });
     setEditingReview(null);
   };
@@ -195,13 +202,40 @@ export default function TripAdvisorReviews() {
                   required
                 />
               </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="status">Status</Label>
+                  <Select
+                    value={formData.status}
+                    onValueChange={(value) => setFormData({ ...formData, status: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="inactive">Inactive</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="display_order">Display Order</Label>
+                  <Input
+                    id="display_order"
+                    type="number"
+                    min="1"
+                    value={formData.display_order}
+                    onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) })}
+                  />
+                </div>
+              </div>
               <div className="flex items-center space-x-2">
                 <Switch
                   id="is_featured"
                   checked={formData.is_featured === 1}
                   onCheckedChange={(checked) => setFormData({ ...formData, is_featured: checked ? 1 : 0 })}
                 />
-                <Label htmlFor="is_featured">Show on Homepage</Label>
+                <Label htmlFor="is_featured">Show on Homepage (Featured)</Label>
               </div>
               <Button type="submit" className="w-full">
                 {editingReview ? "Update Review" : "Create Review"}
@@ -219,17 +253,20 @@ export default function TripAdvisorReviews() {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Order</TableHead>
                 <TableHead>Author</TableHead>
                 <TableHead>Location</TableHead>
                 <TableHead>Title</TableHead>
                 <TableHead>Rating</TableHead>
                 <TableHead>Featured</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {reviews.map((review) => (
                 <TableRow key={review.id}>
+                  <TableCell>{review.display_order || '-'}</TableCell>
                   <TableCell className="font-medium">{review.author_name}</TableCell>
                   <TableCell>{review.author_location}</TableCell>
                   <TableCell className="max-w-xs">
@@ -247,6 +284,11 @@ export default function TripAdvisorReviews() {
                       {review.is_featured ? 'Yes' : 'No'}
                     </span>
                   </TableCell>
+                  <TableCell>
+                    <span className={`px-2 py-1 rounded text-xs ${review.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}`}>
+                      {review.status || 'active'}
+                    </span>
+                  </TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="sm" onClick={() => handleEdit(review)}>
                       <Edit className="h-4 w-4" />
@@ -259,7 +301,7 @@ export default function TripAdvisorReviews() {
               ))}
               {reviews.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
+                  <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
                     No reviews yet. Add your first TripAdvisor review!
                   </TableCell>
                 </TableRow>
