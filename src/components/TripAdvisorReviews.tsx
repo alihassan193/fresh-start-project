@@ -2,10 +2,11 @@ import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { tripAdvisorApi, TripAdvisorReview } from "@/lib/api";
+import { Link } from "react-router-dom";
+import { tripAdvisorApi, TripAdvisorReview, TripAdvisorStats } from "@/lib/api";
 import { useStructuredData, generateAggregateReviewSchema } from "@/hooks/useStructuredData";
 
-const TripAdvisorIcon = () => (
+export const TripAdvisorIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#00AA6C]">
     <path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.04 10.43 5.976 5.976 0 0 0 4.075-1.6L12 19.705l1.922-2.09a5.972 5.972 0 0 0 4.072 1.598 5.997 5.997 0 0 0 4.04-10.43L24 6.647h-4.35a13.573 13.573 0 0 0-7.644-2.352zM12 6.255c1.531 0 3.063.303 4.504.91C14.943 8.11 14 9.94 14 12a6.02 6.02 0 0 0 1.262 3.673L12 19.102l-3.262-3.43A6.018 6.018 0 0 0 10 12c0-2.06-.943-3.89-2.504-4.835A11.54 11.54 0 0 1 12 6.255zM6.003 8.015a3.988 3.988 0 1 1 0 7.976 3.988 3.988 0 0 1 0-7.976zm11.994 0a3.988 3.988 0 1 1 0 7.976 3.988 3.988 0 0 1 0-7.976zM6.003 9.52a2.482 2.482 0 1 0 0 4.964 2.482 2.482 0 0 0 0-4.963zm11.994 0a2.482 2.482 0 1 0 0 4.964 2.482 2.482 0 0 0 0-4.963z"/>
   </svg>
@@ -52,15 +53,23 @@ const fallbackReviews: TripAdvisorReview[] = [
 
 const TripAdvisorReviews = () => {
   const [reviews, setReviews] = useState<TripAdvisorReview[]>(fallbackReviews);
+  const [stats, setStats] = useState<TripAdvisorStats>({ average: "5.0", total: 2847 });
   const [isLoading, setIsLoading] = useState(true);
-  const totalReviews = 2847;
 
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchData = async () => {
       try {
-        const response = await tripAdvisorApi.getFeatured();
-        if (response.success && response.data && response.data.length > 0) {
-          setReviews(response.data);
+        const [reviewsResponse, statsResponse] = await Promise.all([
+          tripAdvisorApi.getFeatured(),
+          tripAdvisorApi.getStats(),
+        ]);
+        
+        if (reviewsResponse.success && reviewsResponse.data && reviewsResponse.data.length > 0) {
+          setReviews(reviewsResponse.data);
+        }
+        
+        if (statsResponse.success && statsResponse.data) {
+          setStats(statsResponse.data);
         }
       } catch (error) {
         // Use fallback reviews on error
@@ -69,13 +78,12 @@ const TripAdvisorReviews = () => {
         setIsLoading(false);
       }
     };
-    fetchReviews();
+    fetchData();
   }, []);
 
-  // Calculate average rating
-  const averageRating = reviews.length > 0 
-    ? parseFloat((reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1))
-    : 4.9;
+  // Use stats from API
+  const averageRating = parseFloat(stats.average);
+  const totalReviews = stats.total;
 
   // Add aggregate review schema for rich snippets
   useStructuredData({
@@ -154,7 +162,16 @@ const TripAdvisorReviews = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center">
+        <div className="text-center flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link to="/reviews">
+            <Button 
+              size="lg"
+              className="bg-primary hover:bg-primary/90"
+            >
+              <Star className="w-5 h-5 mr-2" />
+              <span>View All Reviews</span>
+            </Button>
+          </Link>
           <a
             href="https://www.tripadvisor.com/Attraction_Review-g295424-d34078013-Reviews-Crown_Arabia-Dubai_Emirate_of_Dubai.html"
             target="_blank"
@@ -166,7 +183,7 @@ const TripAdvisorReviews = () => {
               className="border-[#00AA6C] text-[#00AA6C] hover:bg-[#00AA6C] hover:text-white"
             >
               <TripAdvisorIcon />
-              <span className="ml-2">Read All Reviews on Tripadvisor</span>
+              <span className="ml-2">Read on Tripadvisor</span>
             </Button>
           </a>
         </div>

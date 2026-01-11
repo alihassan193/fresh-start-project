@@ -785,35 +785,54 @@ export interface TripAdvisorReview {
   review_title: string;
   review_content: string;
   is_featured: number;
+  status?: string;
+  display_order?: number;
   created_at: string;
+  updated_at?: string;
+}
+
+// TripAdvisor Stats Interface
+export interface TripAdvisorStats {
+  average: string;
+  total: number;
 }
 
 // Public TripAdvisor Reviews API
 export const tripAdvisorApi = {
   getAll: async (): Promise<ApiResponse<TripAdvisorReview[]>> => {
-    return makeRequest("/public/tripadvisor-reviews");
+    return makeRequest("/public/tripadvisor/reviews");
   },
   getFeatured: async (): Promise<ApiResponse<TripAdvisorReview[]>> => {
-    return makeRequest("/public/tripadvisor-reviews/featured");
+    return makeRequest("/public/tripadvisor/reviews/featured");
+  },
+  getStats: async (): Promise<ApiResponse<TripAdvisorStats>> => {
+    return makeRequest("/public/tripadvisor/stats");
   },
 };
 
-// Admin TripAdvisor Reviews APIs
+// Admin TripAdvisor Reviews API
 export const adminTripAdvisorApi = {
-  getAll: async () => makeAdminRequest("/tripadvisor-reviews"),
-  create: async (data: Partial<TripAdvisorReview>) => {
-    return makeAdminRequest("/tripadvisor-reviews", {
+  getAll: async (): Promise<ApiResponse<TripAdvisorReview[]>> => {
+    return makeAdminRequest("/admin/tripadvisor/reviews");
+  },
+  getById: async (id: number): Promise<ApiResponse<TripAdvisorReview>> => {
+    return makeAdminRequest(`/admin/tripadvisor/reviews/${id}`);
+  },
+  create: async (data: Partial<TripAdvisorReview>): Promise<ApiResponse<{ id: number }>> => {
+    return makeAdminRequest("/admin/tripadvisor/reviews", {
       method: "POST",
       body: JSON.stringify(data),
     });
   },
-  update: async (id: number, data: Partial<TripAdvisorReview>) => {
-    return makeAdminRequest(`/tripadvisor-reviews/${id}`, {
+  update: async (id: number, data: Partial<TripAdvisorReview>): Promise<ApiResponse<{ id: number }>> => {
+    return makeAdminRequest(`/admin/tripadvisor/reviews/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
     });
   },
-  delete: async (id: number) => {
-    return makeAdminRequest(`/tripadvisor-reviews/${id}`, { method: "DELETE" });
+  delete: async (id: number): Promise<ApiResponse<void>> => {
+    return makeAdminRequest(`/admin/tripadvisor/reviews/${id}`, {
+      method: "DELETE",
+    });
   },
 };

@@ -48,6 +48,7 @@ const AdminDeals = lazy(() => import("./pages/admin/Deals"));
 const AdminPageContent = lazy(() => import("./pages/admin/PageContent"));
 const Terms = lazy(() => import("./pages/Terms"));
 const Privacy = lazy(() => import("./pages/Privacy"));
+const Reviews = lazy(() => import("./pages/Reviews"));
 
 const queryClient = new QueryClient();
 
@@ -194,6 +195,15 @@ const App = () => (
                       <>
                         <WhatsAppFloat />
                         <Privacy />
+                      </>
+                    }
+                  />
+                  <Route
+                    path="/reviews"
+                    element={
+                      <>
+                        <WhatsAppFloat />
+                        <Reviews />
                       </>
                     }
                   />
